@@ -1,7 +1,7 @@
 import express, { urlencoded } from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-// import postRoute from './routes/post.route.js';
+import postRoute from './routes/post.route.js';
 import userRoute from './routes/user.route.js';
 import authRoute from './routes/auth.route.js';
 import testRoute from './routes/test.route.js';
@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 const PORT = process.env.PORT || 8080;
 
-// app.use('/api/posts', postRoute);
+app.use('/api/posts', postRoute);
 app.use('/api/users', userRoute);
 app.use('/api/auths', authRoute);
 app.use('/api/tests', testRoute);
