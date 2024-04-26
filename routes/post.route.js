@@ -1,26 +1,17 @@
-// import express from 'express';
+import express from 'express';
+import { addPost, deletePost, getPost, getPosts, updatePost } from '../controllers/post.controller.js';
 
-// const router = express.Router()
+const router = express.Router()
 
-// router.get('/register', (req, res) => {
-//     console.log('router works!');
-// })
+router.get('/', getPosts);
 
-// router.get('/logout', (req, res) => {
-//     console.log('router works!');
-// })
+router.get('/:id', getPost);
 
-// router.post('/login', (req, res) => {
-//     console.log('router works!');
-// })
+router.post('/', addPost);
 
-// router.put('/logout', (req, res) => {
-//     console.log('router works!');
-// })
+router.put('/:id', updatePost);
 
-// router.delete('/logout', (req, res) => {
-//     console.log('router works!');
-// })
+router.delete('/:id', deletePost);
 
 
-// export default router;
+export default router;
