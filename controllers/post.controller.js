@@ -4,7 +4,6 @@ export const getPosts = async (req, res) => {
     try {
         const posts = await prisma.post.findMany();
 
-
         res.status(200).json(posts);
     } catch (error) {
         console.log(error.message);
@@ -17,8 +16,22 @@ export const getPost = async (req, res) => {
         const { id } = req.params;
 
         const post = await prisma.post.findUnique({
-            where: { id }
+            where: { id },
+            include: {
+                postDetail: true,
+                user: {
+                    select: {
+                        username: true,
+                        email: true,
+                        avatar: true,
+                    }
+                }
+            },
         });
+
+        if (!post) {
+           return res.status(404).json({ message: "Post not found" });
+        }
 
         res.status(200).json(post);
     } catch (error) {
@@ -34,8 +47,11 @@ export const addPost = async (req, res) => {
 
         const post = await prisma.post.create({
             data: {
-                ...body,
+                ...body.postData,
                 userId: tokenUserId,
+                postDetail: {
+                    create: body.postDetail
+                }
             }
         })
 
